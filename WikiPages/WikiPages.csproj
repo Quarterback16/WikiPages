@@ -50,6 +50,7 @@
     <Compile Include="WikiChecklist.cs" />
     <Compile Include="WikiCodeBlock.cs" />
     <Compile Include="WikiColumn.cs" />
+    <Compile Include="WikiColumnLeft.cs" />
     <Compile Include="WikiColumnRight.cs" />
     <Compile Include="WikiElement.cs" />
     <Compile Include="WikiFileName.cs" />
