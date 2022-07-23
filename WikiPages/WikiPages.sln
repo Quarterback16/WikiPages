@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.2.32630.192
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikiPages", "WikiPages.csproj", "{EE401DA8-C15A-47F5-A021-AA1FAD94FE71}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EE401DA8-C15A-47F5-A021-AA1FAD94FE71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE401DA8-C15A-47F5-A021-AA1FAD94FE71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE401DA8-C15A-47F5-A021-AA1FAD94FE71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE401DA8-C15A-47F5-A021-AA1FAD94FE71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F42A5138-30D5-4DAE-9D5C-01EA91B2985A}
+	EndGlobalSection
+EndGlobal
