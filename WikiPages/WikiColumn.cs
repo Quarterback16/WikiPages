@@ -14,5 +14,9 @@
 		{
 			Header = header;
 		}
+		public virtual string HeaderCode()
+        {
+			return "---";
+        }
 	}
 }

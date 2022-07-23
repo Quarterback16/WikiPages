@@ -73,7 +73,7 @@ namespace WikiPages
 			sb.AppendLine();
 			sb.Append("|");
 			foreach (var col in Columns)
-				sb.Append(col.RightJustify ? " --:|" : " --- |");
+				sb.Append($" {col.HeaderCode()} |");
 			if (toConsole)
 				Console.WriteLine(sb.ToString());
 			return sb.ToString();
@@ -82,6 +82,13 @@ namespace WikiPages
 			string header)
 		{
 			Columns.Add(new WikiColumn(header));
+			return this;
+		}
+
+		public WikiTable AddColumnRight(
+			string header)
+		{
+			Columns.Add(new WikiColumnRight(header));
 			return this;
 		}
 

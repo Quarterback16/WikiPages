@@ -8,5 +8,10 @@
 			Header = header;
 			RightJustify = true;
 		}
-	}
+
+        public override string HeaderCode()
+        {
+            return "--:";
+        }
+    }
 }
