@@ -158,7 +158,8 @@ namespace WikiPages
 			}
 			return this;
 		}
-		public WikiPage RenderToMarkdownFile()
+
+        public WikiPage RenderToMarkdownFile()
 		{
 			var pageContents = PageContents();
 			// determine title from H1

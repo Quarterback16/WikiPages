@@ -7,5 +7,9 @@
 		public virtual void Render()
 		{
 		}
-	}
+        public virtual string RenderAsString()
+        {
+			return Value;
+        }
+    }
 }

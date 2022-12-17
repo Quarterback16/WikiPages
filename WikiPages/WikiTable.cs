@@ -67,7 +67,7 @@ namespace WikiPages
 			foreach (var col in Columns)
 			{
 				if (col.Header.Length > 0)
-					col.Header = $"**{col.Header}**";
+					col.Header = $"{col.Header}";
 				sb.AppendFormat("  {0}  |", col.Header.PadRight(MaxColWidth(col)));
 			}
 			sb.AppendLine();
