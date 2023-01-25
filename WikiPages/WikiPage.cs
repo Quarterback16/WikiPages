@@ -187,7 +187,22 @@ namespace WikiPages
 			}
 			return this;
 		}
-		public string PageContents()
+        public WikiPage RenderToObsidian(
+            string fileName,
+			string folder)
+        {
+            var pageContents = PageContents();
+            var filePath
+                = $"{folder}{fileName}.md";
+
+            using (StreamWriter outputFile = new StreamWriter(
+                filePath))
+            {
+                outputFile.WriteLine(pageContents);
+            }
+            return this;
+        }
+        public string PageContents()
 		{
 			var sb = new StringBuilder();
 			foreach (var element in Elements)
