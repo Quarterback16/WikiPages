@@ -159,12 +159,17 @@ namespace WikiPages
 			return this;
 		}
 
-        public WikiPage RenderToMarkdownFile()
+        public WikiPage RenderToMarkdownFile(
+			string folder = "")
 		{
 			var pageContents = PageContents();
 			// determine title from H1
 			Title = DetermineTitle();
-			var filePath = $"d:\\Dropbox\\Obsidian\\ChestOfNotes\\{Title}.md";
+			string filePath;
+			if (string.IsNullOrEmpty(folder))
+				filePath = $"d:\\Dropbox\\Obsidian\\ChestOfNotes\\{Title}.md";
+			else
+				filePath = $"d:\\Dropbox\\Obsidian\\ChestOfNotes\\{folder}\\{Title}.md";
 
 			using (StreamWriter outputFile = new StreamWriter(
 				filePath))
