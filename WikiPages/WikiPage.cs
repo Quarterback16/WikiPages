@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -150,7 +151,8 @@ namespace WikiPages
 			this.AddElement(new WikiBlank());
 			return this;
 		}
-		public WikiPage RenderToConsole()
+
+        public WikiPage RenderToConsole()
 		{
 			foreach (var element in Elements)
 			{
@@ -229,5 +231,6 @@ namespace WikiPages
 			}
 			return title;
 		}
-	}
+
+    }
 }
