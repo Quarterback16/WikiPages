@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 
@@ -41,7 +42,24 @@ namespace WikiPages
 			}
 			return sb.ToString();
 		}
-		private string RenderRow(
+
+        public void ToCsv(
+           string fileName)
+        {
+            using (StreamWriter outputFile = new StreamWriter(fileName))
+            {
+                outputFile.WriteLine(CsvHeader());
+                RowData.ToList().ForEach(r => outputFile.WriteLine(CsvRow(r)));
+            }
+        }
+
+        private string CsvRow(KeyValuePair<int, string[]> r) =>
+           string.Join(",", r.Value.Select(c => $"\"{c.Trim()}\""));
+
+        private string CsvHeader() =>
+           string.Join(",", Columns.Select(c => $"\"{c.Header}\""));
+
+        private string RenderRow(
 			int rowNumber,
 			bool toConsole = true)
 		{
