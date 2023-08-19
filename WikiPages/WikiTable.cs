@@ -2,7 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Lifetime;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
 namespace WikiPages
 {
@@ -43,8 +46,53 @@ namespace WikiPages
 			return sb.ToString();
 		}
 
+        public string ToHtml()
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine(
+               "<table border='1'>");
+            sb.AppendLine(RenderTableHeader());
+            int rowNumber = 0;
+            foreach (var row in RowData)
+            {
+                rowNumber++;
+                sb.AppendLine(RenderRowToHtml(rowNumber));
+            }
+            sb.AppendLine("</table>");
+            return sb.ToString();
+        }
+
+        private string RenderTableHeader()
+        {
+            var sb = new StringBuilder();
+            foreach (var col in Columns)
+            {
+                if (col.Header.Length > 0)
+                    col.Header = $"{col.Header}";
+                sb.AppendLine($"   <th> {col.Header} </th>");
+            }
+            return sb.ToString();
+        }
+
+        private string RenderRowToHtml(
+           int rowNumber)
+        {
+            var sb = new StringBuilder();
+            sb.AppendLine("   <tr>");
+            var rowData = RowData[rowNumber];
+            var colNumber = 0;
+            foreach (var col in Columns)
+            {
+                var cellValue = rowData[colNumber] ?? string.Empty;
+                sb.AppendLine($"      <td> {cellValue} </td>");
+                colNumber++;
+            }
+            sb.AppendLine("   </tr>");
+            return sb.ToString();
+        }
+
         public void ToCsv(
-           string fileName)
+        string fileName)
         {
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
@@ -52,7 +100,6 @@ namespace WikiPages
                 RowData.ToList().ForEach(r => outputFile.WriteLine(CsvRow(r)));
             }
         }
-
         private string CsvRow(KeyValuePair<int, string[]> r) =>
            string.Join(",", r.Value.Select(c => $"\"{c.Trim()}\""));
 
