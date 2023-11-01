@@ -182,9 +182,12 @@ namespace WikiPages
 			int col,
 			string cellValue)
 		{
-			var rowContents = RowData[row];
-			rowContents[col] = cellValue;
-			RowData[row] = rowContents;
+			if (RowData.ContainsKey(row))
+			{
+				var rowContents = RowData[row];
+				rowContents[col] = cellValue;
+				RowData[row] = rowContents;
+			}
 		}
 		private int MaxColWidth(WikiColumn col)
 		{
