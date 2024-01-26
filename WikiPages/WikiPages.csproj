@@ -66,4 +66,7 @@
     <Compile Include="WkikThreading.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy "$(TargetDir)WikiPages.dll" "d:\dropbox\services\" /D /Y /I</PostBuildEvent>
+  </PropertyGroup>
 </Project>
