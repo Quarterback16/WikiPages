@@ -2,10 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.Remoting.Lifetime;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Xml.Linq;
 
 namespace WikiPages
 {
@@ -18,7 +15,25 @@ namespace WikiPages
 			Columns = new List<WikiColumn>();
 			RowData = new Dictionary<int, string[]>();
 		}
-		public override void Render()
+
+        public void AddCellData<T>(
+            IEnumerable<WikiColumn> cols,
+            List<Func<T, string>> colFns,
+            IEnumerable<T> tips,
+            WikiTable t)
+        {
+            t.Columns = cols.ToList();
+            t.AddRows(tips.Count());
+            foreach (var (tip, r) in tips.Select((tip, r) => (tip, r)))
+            {
+                foreach (var (colFn, c) in colFns.Select((colFn, c) => (colFn, c)))
+                {
+                    t.AddCell(r + 1, c, colFn(tip));
+                }
+            }
+        }
+
+        public override void Render()
 		{
 			RenderHeader();
 			int rowNumber = 0;
@@ -159,7 +174,7 @@ namespace WikiPages
 
 		public void AddRows(int numberOfRows)
 		{
-			var existingRows = RowData.Count();
+			var existingRows = RowData.Count;
 			for (int i = 1; i < numberOfRows + 1; i++)
 			{
 				var arr = new string[Columns.Count];
@@ -218,28 +233,6 @@ namespace WikiPages
 			}
 			return 1;
 		}
-		private int MaxColWidth(int colNumber)
-		{
-			var max = Column(colNumber).Header.Length;
-			for (int r = 1; r < RowData.Count + 1; r++)
-			{
-				var rowContents = RowData[r];
-				var cell = rowContents[colNumber];
-				if (cell.Length > max)
-					max = cell.Length;
-			}
-			return max;
-		}
-		private WikiColumn Column(int colNumber)
-		{
-			var colNo = 0;
-			foreach (var col in Columns)
-			{
-				colNo++;
-				if (colNo.Equals(colNumber))
-					return col;
-			}
-			return new WikiColumn();
-		}
+
 	}
 }
