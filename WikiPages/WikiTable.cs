@@ -200,7 +200,10 @@ namespace WikiPages
 			if (RowData.ContainsKey(row))
 			{
 				var rowContents = RowData[row];
-				rowContents[col] = cellValue;
+				if (col <= rowContents.Length - 1)
+				{
+					rowContents[col] = cellValue;
+				}
 				RowData[row] = rowContents;
 			}
 		}
