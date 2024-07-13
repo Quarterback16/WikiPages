@@ -61,6 +61,7 @@
     <Compile Include="WikiLine.cs" />
     <Compile Include="WikiNumberedList.cs" />
     <Compile Include="WikiPage.cs" />
+    <Compile Include="WikiPageWithTable.cs" />
     <Compile Include="WikiTable.cs" />
     <Compile Include="WikiTags.cs" />
     <Compile Include="WkikThreading.cs" />

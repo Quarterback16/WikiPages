@@ -139,26 +139,30 @@ namespace WikiPages
 				Console.WriteLine(sb.ToString());
 			return sb.ToString();
 		}
-		private string RenderHeader(
-			bool toConsole = true)
-		{
-			var sb = new StringBuilder();
-			sb.Append("|");
-			foreach (var col in Columns)
-			{
-				if (col.Header.Length > 0)
-					col.Header = $"{col.Header}";
-				sb.AppendFormat("  {0}  |", col.Header.PadRight(MaxColWidth(col)));
-			}
-			sb.AppendLine();
-			sb.Append("|");
-			foreach (var col in Columns)
-				sb.Append($" {col.HeaderCode()} |");
-			if (toConsole)
-				Console.WriteLine(sb.ToString());
-			return sb.ToString();
-		}
-		public WikiTable AddColumn(
+        private string RenderHeader(
+            bool toConsole = true)
+        {
+            var sb = new StringBuilder();
+            sb.Append("|");
+            foreach (var col in Columns)
+            {
+                if (col.Header.Length > 0)
+                    col.Header = $"{col.Header}";
+                sb.AppendFormat("  {0}  |", col.Header.PadRight(MaxColWidth(col)));
+            }
+            sb.AppendLine();
+            sb.Append("|");
+            foreach (var col in Columns)
+            {
+                sb.Append(col.RightJustify
+                    ? $" {new string('-', Math.Max(MaxColWidth(col), col.Header.Length) + 1)}: |"
+                    : $" {new string('-', Math.Max(MaxColWidth(col), col.Header.Length) + 2)} |");
+            }
+            if (toConsole)
+                Console.WriteLine(sb.ToString());
+            return sb.ToString();
+        }
+        public WikiTable AddColumn(
 			string header)
 		{
 			Columns.Add(new WikiColumn(header));
