@@ -176,7 +176,25 @@ namespace WikiPages
 			return this;
 		}
 
-		public void AddRows(int numberOfRows)
+        public WikiTable AddColumns(
+            string[] headers)
+        {
+            headers.ToList()
+                .ForEach(c =>
+                    Columns.Add(new WikiColumn(c)));
+            return this;
+        }
+
+        public WikiTable AddColumnsRight(
+            string[] headers)
+        {
+            headers.ToList()
+                .ForEach(c =>
+                    Columns.Add(new WikiColumnRight(c)));
+            return this;
+        }
+
+        public void AddRows(int numberOfRows)
 		{
 			var existingRows = RowData.Count;
 			for (int i = 1; i < numberOfRows + 1; i++)
@@ -211,7 +229,9 @@ namespace WikiPages
 				RowData[row] = rowContents;
 			}
 		}
-		private int MaxColWidth(WikiColumn col)
+
+
+        private int MaxColWidth(WikiColumn col)
 		{
 			var max = col.Header.Length;
 			var colNumber = ColumnNumber(col);
