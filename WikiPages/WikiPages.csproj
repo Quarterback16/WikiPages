@@ -52,6 +52,7 @@
     <Compile Include="WikiCodeBlock.cs" />
     <Compile Include="WikiColumn.cs" />
     <Compile Include="WikiColumnCentered.cs" />
+    <Compile Include="WikiColumnCentre.cs" />
     <Compile Include="WikiColumnLeft.cs" />
     <Compile Include="WikiColumnRight.cs" />
     <Compile Include="WikiElement.cs" />

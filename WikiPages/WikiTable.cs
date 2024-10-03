@@ -176,6 +176,13 @@ namespace WikiPages
 			return this;
 		}
 
+        public WikiTable AddColumnCentred(
+            string header)
+        {
+            Columns.Add(new WikiColumnCentre(header));
+            return this;
+        }
+
         public WikiTable AddColumns(
             string[] headers)
         {
