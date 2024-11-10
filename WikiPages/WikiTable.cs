@@ -236,7 +236,18 @@ namespace WikiPages
 				RowData[row] = rowContents;
 			}
 		}
+        public void AddCell(
+            int row,
+            string colName,
+            string cellValue)
+        {
+            var rowContents = RowData[row];
+            rowContents[FindColumnIndex(colName)] = cellValue;
+            RowData[row] = rowContents;
+        }
 
+        public int FindColumnIndex(string nameToFind) =>
+            Columns.FindIndex(col => col.Header == nameToFind);
 
         private int MaxColWidth(WikiColumn col)
 		{
