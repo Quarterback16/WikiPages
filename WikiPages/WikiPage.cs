@@ -180,19 +180,12 @@ namespace WikiPages
 			return this;
 		}
 		public WikiPage RenderToObsidian(
-			string fileName)
-		{
-			var pageContents = PageContents();
-			var filePath
-				= $"d:\\Dropbox\\Obsidian\\ChestOfNotes\\{fileName}.md";
+			string fileName) =>
 
-			using (StreamWriter outputFile = new StreamWriter(
-				filePath))
-			{
-				outputFile.WriteLine(pageContents);
-			}
-			return this;
-		}
+			RenderToObsidian(
+				fileName,
+				"d:\\Dropbox\\Obsidian\\ChestOfNotes\\");
+
         public WikiPage RenderToObsidian(
             string fileName,
 			string folder)
