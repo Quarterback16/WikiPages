@@ -192,6 +192,14 @@ namespace WikiPages
             return this;
         }
 
+        public WikiTable AddColumns(
+            List<WikiColumn> cols)
+        {
+            cols.ForEach(c =>
+                    Columns.Add(c));
+            return this;
+        }
+
         public WikiTable AddColumnsRight(
             string[] headers)
         {
