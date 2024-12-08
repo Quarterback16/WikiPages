@@ -154,9 +154,7 @@ namespace WikiPages
             sb.Append("|");
             foreach (var col in Columns)
             {
-                sb.Append(col.RightJustify
-                    ? $" {new string('-', Math.Max(MaxColWidth(col), col.Header.Length) + 1)}: |"
-                    : $" {new string('-', Math.Max(MaxColWidth(col), col.Header.Length) + 2)} |");
+                sb.Append($" {col.HeaderCode()} |");
             }
             if (toConsole)
                 Console.WriteLine(sb.ToString());

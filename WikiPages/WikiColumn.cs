@@ -18,6 +18,8 @@
 		}
 		public virtual string HeaderCode()
         {
+			if (Centred)
+				return ":-:";
 			return "---";
         }
 	}
