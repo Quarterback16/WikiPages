@@ -106,8 +106,7 @@ namespace WikiPages
             return sb.ToString();
         }
 
-        public void ToCsv(
-        string fileName)
+        public void ToCsv(string fileName)
         {
             using (StreamWriter outputFile = new StreamWriter(fileName))
             {
@@ -154,7 +153,7 @@ namespace WikiPages
             sb.Append("|");
             foreach (var col in Columns)
             {
-                sb.Append($" {col.HeaderCode()} |");
+                sb.Append($" {col.HeaderCode(MaxColWidth(col))} |");
             }
             if (toConsole)
                 Console.WriteLine(sb.ToString());
@@ -263,12 +262,9 @@ namespace WikiPages
 			{
 				var rowContents = RowData[r];
 				var cell = rowContents[colNumber - 1];
-				if (!string.IsNullOrEmpty(cell))
-				{
-					if (cell.Length > max)
-						max = cell.Length;
-				}
-			}
+                if (!string.IsNullOrEmpty(cell) && cell.Length > max)
+                    max = cell.Length;
+            }
 			return max;
 		}
 		private int ColumnNumber(WikiColumn col)

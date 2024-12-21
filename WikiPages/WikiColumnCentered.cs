@@ -9,9 +9,9 @@
             Centred = true;
         }
 
-        public override string HeaderCode()
-        {
-            return ":-:";
-        }
+        public override string HeaderCode(int width) =>
+
+            $":{new string('-', width)}:";
+
     }
 }

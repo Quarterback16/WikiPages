@@ -16,11 +16,11 @@
 		{
 			Header = header;
 		}
-		public virtual string HeaderCode()
+		public virtual string HeaderCode(int width)
         {
 			if (Centred)
-				return ":-:";
-			return "---";
+				return $":{new string('-', width)}:";
+			return new string('-',width+2);
         }
 	}
 }
