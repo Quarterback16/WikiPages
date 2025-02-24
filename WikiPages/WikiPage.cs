@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -177,7 +178,8 @@ namespace WikiPages
 			{
 				outputFile.WriteLine(pageContents);
 			}
-			return this;
+			Debug.WriteLine($"md file written to {filePath}");
+            return this;
 		}
 		public WikiPage RenderToObsidian(
 			string fileName) =>
