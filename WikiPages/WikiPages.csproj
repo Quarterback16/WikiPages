@@ -69,6 +69,6 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy "$(TargetDir)WikiPages.dll" "d:\dropbox\services\" /D /Y /I</PostBuildEvent>
+    <PostBuildEvent>xcopy "$(TargetDir)WikiPages.dll" "c:\users\quart\dropbox\services\" /D /Y /I</PostBuildEvent>
   </PropertyGroup>
 </Project>
