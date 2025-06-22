@@ -67,6 +67,11 @@
     <Compile Include="WikiTags.cs" />
     <Compile Include="WkikThreading.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="WikiPages.nuspec">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>xcopy "$(TargetDir)WikiPages.dll" "c:\users\quart\dropbox\services\" /D /Y /I</PostBuildEvent>

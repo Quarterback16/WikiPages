@@ -1,0 +1,15 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>WikiPages</id>
+    <version>1.0.0</version>
+    <authors>Steve</authors>
+    <owners>Knoware</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>TFL library for Gerard the Butler</description>
+    <tags>utilities helpers logging</tags>
+  </metadata>
+  <files>
+    <file src="WikiPages.dll" target="lib\net48\" />
+  </files>
+</package>
