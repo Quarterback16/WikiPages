@@ -9,5 +9,12 @@
             Page = new WikiPage();
             Table = new WikiTable();
         }
+
+        public string PageTableContents()
+        {
+            Elements.Add(Table);
+            Page.AddBlankLine();
+            return PageContents();
+        }
     }
 }

@@ -129,7 +129,28 @@ namespace WikiPages
 			return this;
 		}
 
-		public WikiPage AddSection(
+        public WikiPage AddUnnumberedChecklist(
+            string title,
+            List<string> tasks)
+        {
+            AddElement(
+                new WikiUnnumberedChecklist(
+                    title,
+                    tasks));
+            return this;
+        }
+        public WikiPage AddNoStrikeChecklist(
+            string title,
+            List<string> tasks)
+        {
+            AddElement(
+                new WikiNoStrikeChecklist(
+                    title,
+                    tasks));
+            return this;
+        }
+
+        public WikiPage AddSection(
 			string header,
 			string[] list,
 			int level = 2)
