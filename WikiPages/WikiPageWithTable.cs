@@ -12,7 +12,8 @@
 
         public string PageTableContents()
         {
-            Elements.Add(Table);
+            if (Table.Columns.Count > 0)
+                Elements.Add(Table);
             Page.AddBlankLine();
             return PageContents();
         }
