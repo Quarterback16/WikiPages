@@ -67,7 +67,9 @@ namespace WikiPages
 				new WikiHeading(
 					level: 2,
 					title));
-			foreach (var element in bullets)
+            AddElement(
+                new WikiBlank());
+            foreach (var element in bullets)
 			{
 				AddElement(
 					new WikiBullet(
