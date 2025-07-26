@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WikiPages
 {
-    public class WikiPage
+	public class WikiPage
 	{
 		public List<WikiElement> Elements { get; set; }
 		public string Title { get; set; }
@@ -67,9 +67,9 @@ namespace WikiPages
 				new WikiHeading(
 					level: 2,
 					title));
-            AddElement(
-                new WikiBlank());
-            foreach (var element in bullets)
+			AddElement(
+				new WikiBlank());
+			foreach (var element in bullets)
 			{
 				AddElement(
 					new WikiBullet(
@@ -131,28 +131,28 @@ namespace WikiPages
 			return this;
 		}
 
-        public WikiPage AddUnnumberedChecklist(
-            string title,
-            List<string> tasks)
-        {
-            AddElement(
-                new WikiUnnumberedChecklist(
-                    title,
-                    tasks));
-            return this;
-        }
-        public WikiPage AddNoStrikeChecklist(
-            string title,
-            List<string> tasks)
-        {
-            AddElement(
-                new WikiNoStrikeChecklist(
-                    title,
-                    tasks));
-            return this;
-        }
+		public WikiPage AddUnnumberedChecklist(
+			string title,
+			List<string> tasks)
+		{
+			AddElement(
+				new WikiUnnumberedChecklist(
+					title,
+					tasks));
+			return this;
+		}
+		public WikiPage AddNoStrikeChecklist(
+			string title,
+			List<string> tasks)
+		{
+			AddElement(
+				new WikiNoStrikeChecklist(
+					title,
+					tasks));
+			return this;
+		}
 
-        public WikiPage AddSection(
+		public WikiPage AddSection(
 			string header,
 			string[] list,
 			int level = 2)
@@ -175,7 +175,7 @@ namespace WikiPages
 			return this;
 		}
 
-        public WikiPage RenderToConsole()
+		public WikiPage RenderToConsole()
 		{
 			foreach (var element in Elements)
 			{
@@ -184,7 +184,7 @@ namespace WikiPages
 			return this;
 		}
 
-        public WikiPage RenderToMarkdownFile(
+		public WikiPage RenderToMarkdownFile(
 			string folder = "")
 		{
 			var pageContents = PageContents();
@@ -202,7 +202,7 @@ namespace WikiPages
 				outputFile.WriteLine(pageContents);
 			}
 			Debug.WriteLine($"md file written to {filePath}");
-            return this;
+			return this;
 		}
 		public WikiPage RenderToObsidian(
 			string fileName) =>
@@ -211,22 +211,22 @@ namespace WikiPages
 				fileName,
 				"d:\\Dropbox\\Obsidian\\ChestOfNotes\\");
 
-        public WikiPage RenderToObsidian(
-            string fileName,
+		public WikiPage RenderToObsidian(
+			string fileName,
 			string folder)
-        {
-            var pageContents = PageContents();
-            var filePath
-                = $"{folder}{fileName}.md";
+		{
+			var pageContents = PageContents();
+			var filePath
+				= $"{folder}{fileName}.md";
 
-            using (StreamWriter outputFile = new StreamWriter(
-                filePath))
-            {
-                outputFile.WriteLine(pageContents);
-            }
-            return this;
-        }
-        public string PageContents()
+			using (StreamWriter outputFile = new StreamWriter(
+				filePath))
+			{
+				outputFile.WriteLine(pageContents);
+			}
+			return this;
+		}
+		public string PageContents()
 		{
 			var sb = new StringBuilder();
 			foreach (var element in Elements)
@@ -249,5 +249,5 @@ namespace WikiPages
 			return title;
 		}
 
-    }
+	}
 }
