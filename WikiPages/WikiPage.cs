@@ -10,16 +10,21 @@ namespace WikiPages
 	{
 		public List<WikiElement> Elements { get; set; }
 		public string Title { get; set; }
+		public string RootFolder { get; set; }
 		public WikiPage()
 		{
 			Elements = new List<WikiElement>();
-		}
-		public WikiPage(string title)
+			RootFolder = "d:\\Dropbox\\Obsidian\\ChestOfNotes\\";
+        }
+		public WikiPage(string title = "", string rootFolder = "")
 		{
-			Elements = new List<WikiElement>();
+            RootFolder = "d:\\Dropbox\\Obsidian\\ChestOfNotes\\";
+            Elements = new List<WikiElement>();
 			Title = title;
-		}
-		public WikiPage AddElement(
+			if (!string.IsNullOrEmpty(rootFolder))
+				RootFolder = rootFolder;
+        }
+        public WikiPage AddElement(
 			WikiElement element)
 		{
 			Elements.Add(element);
@@ -176,9 +181,7 @@ namespace WikiPages
         public WikiPage RenderToConsole()
 		{
 			foreach (var element in Elements)
-			{
 				element.Render();
-			}
 			return this;
 		}
 
@@ -190,9 +193,9 @@ namespace WikiPages
 			Title = DetermineTitle();
 			string filePath;
 			if (string.IsNullOrEmpty(folder))
-				filePath = $"d:\\Dropbox\\Obsidian\\ChestOfNotes\\{Title}.md";
+				filePath = $"{RootFolder}{Title}.md";
 			else
-				filePath = $"d:\\Dropbox\\Obsidian\\ChestOfNotes\\{folder}\\{Title}.md";
+				filePath = $"{RootFolder}{folder}\\{Title}.md";
 
 			using (StreamWriter outputFile = new StreamWriter(
 				filePath))
@@ -207,7 +210,7 @@ namespace WikiPages
 
 			RenderToObsidian(
 				fileName,
-				"d:\\Dropbox\\Obsidian\\ChestOfNotes\\");
+				RootFolder);
 
         public WikiPage RenderToObsidian(
             string fileName,
@@ -228,9 +231,7 @@ namespace WikiPages
 		{
 			var sb = new StringBuilder();
 			foreach (var element in Elements)
-			{
 				sb.Append(element.ToString());
-			}
 			return sb.ToString();
 		}
 
