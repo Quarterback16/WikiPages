@@ -6,7 +6,7 @@ using System.Text;
 
 namespace WikiPages
 {
-    public class WikiTable : WikiElement
+	public class WikiTable : WikiElement
 	{
 		public List<WikiColumn> Columns { get; set; }
 		public Dictionary<int, string[]> RowData { get; set; }
@@ -16,24 +16,24 @@ namespace WikiPages
 			RowData = new Dictionary<int, string[]>();
 		}
 
-        public void AddCellData<T>(
-            IEnumerable<WikiColumn> cols,
-            List<Func<T, string>> colFns,
-            IEnumerable<T> tips,
-            WikiTable t)
-        {
-            t.Columns = cols.ToList();
-            t.AddRows(tips.Count());
-            foreach (var (tip, r) in tips.Select((tip, r) => (tip, r)))
-            {
-                foreach (var (colFn, c) in colFns.Select((colFn, c) => (colFn, c)))
-                {
-                    t.AddCell(r + 1, c, colFn(tip));
-                }
-            }
-        }
+		public void AddCellData<T>(
+			IEnumerable<WikiColumn> cols,
+			List<Func<T, string>> colFns,
+			IEnumerable<T> tips,
+			WikiTable t)
+		{
+			t.Columns = cols.ToList();
+			t.AddRows(tips.Count());
+			foreach (var (tip, r) in tips.Select((tip, r) => (tip, r)))
+			{
+				foreach (var (colFn, c) in colFns.Select((colFn, c) => (colFn, c)))
+				{
+					t.AddCell(r + 1, c, colFn(tip));
+				}
+			}
+		}
 
-        public override void Render()
+		public override void Render()
 		{
 			RenderHeader();
 			int rowNumber = 0;
@@ -61,66 +61,82 @@ namespace WikiPages
 			return sb.ToString();
 		}
 
-        public string ToHtml()
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine(
-               "<table border='1'>");
-            sb.AppendLine(RenderTableHeader());
-            int rowNumber = 0;
-            foreach (var row in RowData)
-            {
-                rowNumber++;
-                sb.AppendLine(RenderRowToHtml(rowNumber));
-            }
-            sb.AppendLine("</table>");
-            return sb.ToString();
-        }
+		public string ToHtml()
+		{
+			var sb = new StringBuilder();
+			sb.AppendLine(
+			   "<table border='1'>");
+			sb.AppendLine(RenderTableHeader());
+			int rowNumber = 0;
+			foreach (var row in RowData)
+			{
+				rowNumber++;
+				sb.AppendLine(RenderRowToHtml(rowNumber));
+			}
+			sb.AppendLine("</table>");
+			return sb.ToString();
+		}
 
-        private string RenderTableHeader()
-        {
-            var sb = new StringBuilder();
-            foreach (var col in Columns)
-            {
-                if (col.Header.Length > 0)
-                    col.Header = $"{col.Header}";
-                sb.AppendLine($"   <th> {col.Header} </th>");
-            }
-            return sb.ToString();
-        }
+		public decimal ColTotal(string colName)
+		{
+			var colIndex = FindColumnIndex(colName);
+			if (colIndex < 0)
+				return 0;
+			var total = 0m;
+			foreach (var row in RowData)
+			{
+				if (decimal.TryParse(row.Value[colIndex], out var cellValue))
+				{
+					total += cellValue;
+				}
+			}
+			return total;
+		}
 
-        private string RenderRowToHtml(
-           int rowNumber)
-        {
-            var sb = new StringBuilder();
-            sb.AppendLine("   <tr>");
-            var rowData = RowData[rowNumber];
-            var colNumber = 0;
-            foreach (var col in Columns)
-            {
-                var cellValue = rowData[colNumber] ?? string.Empty;
-                sb.AppendLine($"      <td> {cellValue} </td>");
-                colNumber++;
-            }
-            sb.AppendLine("   </tr>");
-            return sb.ToString();
-        }
+		private string RenderTableHeader()
+		{
+			var sb = new StringBuilder();
+			foreach (var col in Columns)
+			{
+				if (col.Header.Length > 0)
+					col.Header = $"{col.Header}";
+				sb.AppendLine($"   <th> {col.Header} </th>");
+			}
+			return sb.ToString();
+		}
 
-        public void ToCsv(string fileName)
-        {
-            using (StreamWriter outputFile = new StreamWriter(fileName))
-            {
-                outputFile.WriteLine(CsvHeader());
-                RowData.ToList().ForEach(r => outputFile.WriteLine(CsvRow(r)));
-            }
-        }
-        private string CsvRow(KeyValuePair<int, string[]> r) =>
-           string.Join(",", r.Value.Select(c => $"\"{c.Trim()}\""));
+		private string RenderRowToHtml(
+		   int rowNumber)
+		{
+			var sb = new StringBuilder();
+			sb.AppendLine("   <tr>");
+			var rowData = RowData[rowNumber];
+			var colNumber = 0;
+			foreach (var col in Columns)
+			{
+				var cellValue = rowData[colNumber] ?? string.Empty;
+				sb.AppendLine($"      <td> {cellValue} </td>");
+				colNumber++;
+			}
+			sb.AppendLine("   </tr>");
+			return sb.ToString();
+		}
 
-        private string CsvHeader() =>
-           string.Join(",", Columns.Select(c => $"\"{c.Header}\""));
+		public void ToCsv(string fileName)
+		{
+			using (StreamWriter outputFile = new StreamWriter(fileName))
+			{
+				outputFile.WriteLine(CsvHeader());
+				RowData.ToList().ForEach(r => outputFile.WriteLine(CsvRow(r)));
+			}
+		}
+		private string CsvRow(KeyValuePair<int, string[]> r) =>
+		   string.Join(",", r.Value.Select(c => $"\"{c.Trim()}\""));
 
-        private string RenderRow(
+		private string CsvHeader() =>
+		   string.Join(",", Columns.Select(c => $"\"{c.Header}\""));
+
+		private string RenderRow(
 			int rowNumber,
 			bool toConsole = true)
 		{
@@ -138,28 +154,28 @@ namespace WikiPages
 				Console.WriteLine(sb.ToString());
 			return sb.ToString();
 		}
-        private string RenderHeader(
-            bool toConsole = true)
-        {
-            var sb = new StringBuilder();
-            sb.Append("|");
-            foreach (var col in Columns)
-            {
-                if (col.Header.Length > 0)
-                    col.Header = $"{col.Header}";
-                sb.AppendFormat("  {0}  |", col.Header.PadRight(MaxColWidth(col)));
-            }
-            sb.AppendLine();
-            sb.Append("|");
-            foreach (var col in Columns)
-            {
-                sb.Append($" {col.HeaderCode(MaxColWidth(col))} |");
-            }
-            if (toConsole)
-                Console.WriteLine(sb.ToString());
-            return sb.ToString();
-        }
-        public WikiTable AddColumn(
+		private string RenderHeader(
+			bool toConsole = true)
+		{
+			var sb = new StringBuilder();
+			sb.Append("|");
+			foreach (var col in Columns)
+			{
+				if (col.Header.Length > 0)
+					col.Header = $"{col.Header}";
+				sb.AppendFormat("  {0}  |", col.Header.PadRight(MaxColWidth(col)));
+			}
+			sb.AppendLine();
+			sb.Append("|");
+			foreach (var col in Columns)
+			{
+				sb.Append($" {col.HeaderCode(MaxColWidth(col))} |");
+			}
+			if (toConsole)
+				Console.WriteLine(sb.ToString());
+			return sb.ToString();
+		}
+		public WikiTable AddColumn(
 			string header)
 		{
 			Columns.Add(new WikiColumn(header));
@@ -173,40 +189,40 @@ namespace WikiPages
 			return this;
 		}
 
-        public WikiTable AddColumnCentred(
-            string header)
-        {
-            Columns.Add(new WikiColumnCentre(header));
-            return this;
-        }
+		public WikiTable AddColumnCentred(
+			string header)
+		{
+			Columns.Add(new WikiColumnCentre(header));
+			return this;
+		}
 
-        public WikiTable AddColumns(
-            string[] headers)
-        {
-            headers.ToList()
-                .ForEach(c =>
-                    Columns.Add(new WikiColumn(c)));
-            return this;
-        }
+		public WikiTable AddColumns(
+			string[] headers)
+		{
+			headers.ToList()
+				.ForEach(c =>
+					Columns.Add(new WikiColumn(c)));
+			return this;
+		}
 
-        public WikiTable AddColumns(
-            List<WikiColumn> cols)
-        {
-            cols.ForEach(c =>
-                    Columns.Add(c));
-            return this;
-        }
+		public WikiTable AddColumns(
+			List<WikiColumn> cols)
+		{
+			cols.ForEach(c =>
+					Columns.Add(c));
+			return this;
+		}
 
-        public WikiTable AddColumnsRight(
-            string[] headers)
-        {
-            headers.ToList()
-                .ForEach(c =>
-                    Columns.Add(new WikiColumnRight(c)));
-            return this;
-        }
+		public WikiTable AddColumnsRight(
+			string[] headers)
+		{
+			headers.ToList()
+				.ForEach(c =>
+					Columns.Add(new WikiColumnRight(c)));
+			return this;
+		}
 
-        public void AddRows(int numberOfRows)
+		public void AddRows(int numberOfRows)
 		{
 			var existingRows = RowData.Count;
 			for (int i = 1; i < numberOfRows + 1; i++)
@@ -241,20 +257,20 @@ namespace WikiPages
 				RowData[row] = rowContents;
 			}
 		}
-        public void AddCell(
-            int row,
-            string colName,
-            string cellValue)
-        {
-            var rowContents = RowData[row];
-            rowContents[FindColumnIndex(colName)] = cellValue;
-            RowData[row] = rowContents;
-        }
+		public void AddCell(
+			int row,
+			string colName,
+			string cellValue)
+		{
+			var rowContents = RowData[row];
+			rowContents[FindColumnIndex(colName)] = cellValue;
+			RowData[row] = rowContents;
+		}
 
-        public int FindColumnIndex(string nameToFind) =>
-            Columns.FindIndex(col => col.Header == nameToFind);
+		public int FindColumnIndex(string nameToFind) =>
+			Columns.FindIndex(col => col.Header == nameToFind);
 
-        private int MaxColWidth(WikiColumn col)
+		private int MaxColWidth(WikiColumn col)
 		{
 			var max = col.Header.Length;
 			var colNumber = ColumnNumber(col);
@@ -262,9 +278,9 @@ namespace WikiPages
 			{
 				var rowContents = RowData[r];
 				var cell = rowContents[colNumber - 1];
-                if (!string.IsNullOrEmpty(cell) && cell.Length > max)
-                    max = cell.Length;
-            }
+				if (!string.IsNullOrEmpty(cell) && cell.Length > max)
+					max = cell.Length;
+			}
 			return max;
 		}
 		private int ColumnNumber(WikiColumn col)
