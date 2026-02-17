@@ -33,5 +33,23 @@ namespace WikiPage.Tests
                 result.Contains("|"), 
                 "Page should not contain '|' characters.");
         }
+
+        [TestMethod]
+        public void WikiTags_CanHave_NoWhen()
+        {
+            var testPage = new WikiPages.WikiPage();
+            testPage.AddTagsNoWhen(tags: new string[] { "tag1", "tag2"});
+            testPage.AddHeading("Test Tags");
+            testPage.RenderToConsole();
+        }
+
+        [TestMethod]
+        public void WikiTags_CanHave_When()
+        {
+            var testPage = new WikiPages.WikiPage();
+            testPage.AddTags(tags: new string[] { "tag1", "tag2" });
+            testPage.AddHeading("Test Tags");
+            testPage.RenderToConsole();
+        }
     }
 }

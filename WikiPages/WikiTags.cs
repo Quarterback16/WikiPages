@@ -9,10 +9,12 @@ namespace WikiPages
 		public string[] _tags { get; set; }
 		public List<string> TagLines { get; set; }
 		public string Tagline { get; set; }
+        public bool NoWhen { get; set; }
 
-		public WikiTags(
+        public WikiTags(
 			string[] tags = null,
-			List<string> lines = null)
+			List<string> lines = null,
+			bool noWhen = false)
 		{
 			Type = "Tags";
 			TagLines = new List<string>();
@@ -23,7 +25,8 @@ namespace WikiPages
 				_tags = tags;
 				Tagline = (_tags != null) ? String.Join(",", _tags) : "";
 			}
-		}
+			NoWhen = noWhen;
+        }
 		public void AddTagLine(string line)
 		{
 			TagLines.Add(line);
@@ -35,7 +38,8 @@ namespace WikiPages
 				Console.WriteLine($"tags: [{Tagline}]");
 			foreach (var line in TagLines)
 				Console.WriteLine(line);
-			Console.WriteLine($"when: {DateUte.StdDate(DateTime.Now)}");
+			if (!NoWhen)
+                Console.WriteLine($"when: {DateUte.StdDate(DateTime.Now)}");
 			Console.WriteLine("---");
 			Console.WriteLine();
 		}
