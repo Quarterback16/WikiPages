@@ -65,7 +65,15 @@ namespace WikiPages
 				new WikiTags(tags, lines));
 			return this;
 		}
-		public WikiPage AddBulletedList(
+        public WikiPage AddTagsNoWhen(
+            string[] tags = null,
+            List<string> lines = null)
+        {
+            AddElement(
+                new WikiTags(tags, lines, noWhen: true));
+            return this;
+        }
+        public WikiPage AddBulletedList(
 			string title,
 			string[] bullets)
 		{
