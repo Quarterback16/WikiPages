@@ -3,7 +3,7 @@ using System.Text;
 
 namespace WikiPages
 {
-    public class WikiBlank : WikiElement
+	public class WikiBlank : WikiElement
 	{
 		public WikiBlank()
 		{

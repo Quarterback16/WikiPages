@@ -64,6 +64,7 @@
     <Compile Include="WikiNumberedList.cs" />
     <Compile Include="WikiPage.cs" />
     <Compile Include="WikiPageWithTable.cs" />
+    <Compile Include="WikiProperties.cs" />
     <Compile Include="WikiTable.cs" />
     <Compile Include="WikiTags.cs" />
     <Compile Include="WikiUnnumberedChecklist.cs" />

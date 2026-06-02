@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
+using System.Collections.Generic;
 using WikiPages;
 
 namespace WikiPage.Tests
@@ -20,6 +21,7 @@ namespace WikiPage.Tests
             testTable.AddCell(1, 1, "42");
             testPage.AddTable(testTable);
             testPage.RenderToConsole();
+            Assert.IsNotNull(testPage);
         }
 
         [TestMethod]
@@ -32,6 +34,22 @@ namespace WikiPage.Tests
             Assert.IsFalse(
                 result.Contains("|"), 
                 "Page should not contain '|' characters.");
+        }
+
+        [TestMethod]
+        public void WikiPages_Can_HaveProperties()
+        {
+            var testPage = new WikiPages.WikiPage();
+            testPage.AddProperty(
+                new Dictionary<string, string>
+                {
+                    {"Property1", "Value1"},
+                    {"Property2", "Value2"},
+                });
+
+            testPage.AddHeading("Test Page");
+            testPage.RenderToConsole();
+            Assert.IsNotNull(testPage);
         }
     }
 }

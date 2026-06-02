@@ -11,20 +11,21 @@ namespace WikiPages
 		public List<WikiElement> Elements { get; set; }
 		public string Title { get; set; }
 		public string RootFolder { get; set; }
+
 		public WikiPage()
 		{
 			Elements = new List<WikiElement>();
 			RootFolder = "d:\\Dropbox\\Obsidian\\ChestOfNotes\\";
-        }
+		}
 		public WikiPage(string title = "", string rootFolder = "")
 		{
-            RootFolder = "d:\\Dropbox\\Obsidian\\ChestOfNotes\\";
-            Elements = new List<WikiElement>();
+			RootFolder = "d:\\Dropbox\\Obsidian\\ChestOfNotes\\";
+			Elements = new List<WikiElement>();
 			Title = title;
 			if (!string.IsNullOrEmpty(rootFolder))
 				RootFolder = rootFolder;
-        }
-        public WikiPage AddElement(
+		}
+		public WikiPage AddElement(
 			WikiElement element)
 		{
 			Elements.Add(element);
@@ -251,5 +252,12 @@ namespace WikiPages
 			return title;
 		}
 
+		public void AddProperty(
+			Dictionary<string, string> props)
+		{
+			AddElement(
+				new WikiProperties(
+					props));
+		}
 	}
 }

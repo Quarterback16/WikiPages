@@ -4,7 +4,7 @@ using System.Text;
 
 namespace WikiPages
 {
-    public class WikiTags : WikiElement
+	public class WikiTags : WikiElement
 	{
 		public string[] _tags { get; set; }
 		public List<string> TagLines { get; set; }
