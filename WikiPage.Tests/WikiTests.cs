@@ -43,6 +43,7 @@ namespace WikiPage.Tests
             testPage.AddTagsNoWhen(tags: new string[] { "tag1", "tag2"});
             testPage.AddHeading("Test Tags");
             testPage.RenderToConsole();
+            Assert.IsNotNull(testPage);
         }
 
         [TestMethod]
@@ -52,6 +53,7 @@ namespace WikiPage.Tests
             testPage.AddTags(tags: new string[] { "tag1", "tag2" });
             testPage.AddHeading("Test Tags");
             testPage.RenderToConsole();
+            Assert.IsNotNull(testPage);
         }
 
         [TestMethod]

@@ -17,7 +17,7 @@ namespace WikiPages
 			Elements = new List<WikiElement>();
 			RootFolder = "d:\\Dropbox\\Obsidian\\ChestOfNotes\\";
 		}
-		public WikiPage(string title = "", string rootFolder = "")
+		public WikiPage(string title, string rootFolder = "")
 		{
 			RootFolder = "d:\\Dropbox\\Obsidian\\ChestOfNotes\\";
 			Elements = new List<WikiElement>();
@@ -31,6 +31,15 @@ namespace WikiPages
 			Elements.Add(element);
 			return this;
 		}
+
+
+		public WikiPage AddTable(
+			WikiTable table)
+		{
+			Elements.Add(table);
+			return this;
+		}
+
 		public WikiPage AddHeading(
 			string heading)
 		{
@@ -39,14 +48,8 @@ namespace WikiPages
 					level: 1,
 					heading));
 			return this;
+		}
 
-		}
-		public WikiPage AddTable(
-			WikiTable table)
-		{
-			Elements.Add(table);
-			return this;
-		}
 		public WikiPage AddHeading(
 			string heading,
 			int level)
@@ -65,15 +68,15 @@ namespace WikiPages
 				new WikiTags(tags, lines));
 			return this;
 		}
-        public WikiPage AddTagsNoWhen(
-            string[] tags = null,
-            List<string> lines = null)
-        {
-            AddElement(
-                new WikiTags(tags, lines, noWhen: true));
-            return this;
-        }
-        public WikiPage AddBulletedList(
+		public WikiPage AddTagsNoWhen(
+			string[] tags = null,
+			List<string> lines = null)
+		{
+			AddElement(
+				new WikiTags(tags, lines, noWhen: true));
+			return this;
+		}
+		public WikiPage AddBulletedList(
 			string title,
 			string[] bullets)
 		{
